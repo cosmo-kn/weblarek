@@ -143,7 +143,7 @@ interface IBuyer {
 ```private products: IProduct[]```
 Хранит массив всех товаров, доступных в каталоге приложения.
 
-```private selectedProduct: IProduct | null``` 
+```private selectedProduct: IProduct | null = null``` 
 Хранит товар, выбранный пользователем для детального просмотра.
 Если товар не выбран, значение поля равно null.
 
@@ -206,7 +206,7 @@ interface IBuyer {
 ```getTotalPrice(): number```
 Возвращает суммарную стоимость всех товаров, находящихся в корзине.
 
-```getProductCount(): number```
+```getCount(): number```
 Возвращает количество товаров, находящихся в корзине.
 
 ```hasProduct(id: string): boolean```
@@ -235,7 +235,7 @@ interface IBuyer {
 
 Поля класса:
 
-```private payment: string``` — выбранный способ оплаты.
+```private payment: 'online' | 'offline' | ''``` — выбранный способ оплаты.
 
 ```private address: string``` — адрес доставки товара.
 
