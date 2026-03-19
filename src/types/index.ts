@@ -22,3 +22,25 @@ export interface IBuyer {
 }
 
 export type TFormErrors = Record<string, string>
+
+export type TProductsResponse = {
+    total: number;
+    items: IProduct[];
+}
+
+export type TProductResponse = IProduct
+
+export type TOrderRequest = IBuyer & {
+    total: number;
+    items: string[];
+}
+
+export type TOrderResponse = {
+    id: string;
+    total: number;
+}
+
+// export type ErrorResponse = {
+//     error: string  
+// }
+
