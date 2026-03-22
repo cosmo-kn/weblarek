@@ -14,14 +14,16 @@ export interface IProduct {
   price: number | null; 
 }
 
+export type TPayment = 'online' | 'offline' | '';
+
 export interface IBuyer {
-  payment: 'online' | 'offline' | '';
+  payment: TPayment;
   email: string;     
   phone: string;     
   address: string;   
 }
 
-export type TFormErrors = Record<string, string>
+export type TFormErrors = Partial<Record<keyof IBuyer, string>>
 
 export type TProductsResponse = {
     total: number;

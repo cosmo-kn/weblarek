@@ -114,7 +114,7 @@ interface IProduct {
 ```
 ```ts
 interface IBuyer {
-  payment: 'online' | 'offline' | ''; // Способ оплаты
+  payment: TPayment; // Способ оплаты
   email: string;     // Электронная почта
   phone: string;     // Телефон
   address: string;   // Адрес доставки
@@ -235,7 +235,7 @@ interface IBuyer {
 
 Поля класса:
 
-```private payment: 'online' | 'offline' | ''``` — выбранный способ оплаты.
+```TPayment``` — выбранный способ оплаты, может быть: `online`, `offline` и `''`
 
 ```private address: string``` — адрес доставки товара.
 

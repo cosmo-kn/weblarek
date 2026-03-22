@@ -1,8 +1,8 @@
-import { IBuyer, TFormErrors } from "../../types";
+import { IBuyer, TFormErrors, TPayment } from "../../types";
 
 
 export class Buyer {
-  private payment: 'online' | 'offline' | '' = '';
+  private payment: TPayment = '';
   private address: string = '';
   private email: string = '';
   private phone: string = '';
