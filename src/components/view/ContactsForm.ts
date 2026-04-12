@@ -1,7 +1,7 @@
-import { Form } from './Form';
-import { IEvents } from '../base/Events';
-import { ensureElement } from '../../utils/utils';
-import { IContactsForm } from '../../types';
+import { Form } from "./Form";
+import { IEvents } from "../base/Events";
+import { ensureElement } from "../../utils/utils";
+import { IContactsForm } from "../../types";
 
 export class ContactsForm extends Form<IContactsForm> {
   protected _emailInput: HTMLInputElement;
@@ -10,15 +10,25 @@ export class ContactsForm extends Form<IContactsForm> {
   constructor(container: HTMLFormElement, events: IEvents) {
     super(container, events);
 
-    this._emailInput = ensureElement<HTMLInputElement>('input[name=email]', container);
-    this._phoneInput = ensureElement<HTMLInputElement>('input[name=phone]', container);
+    this._emailInput = ensureElement<HTMLInputElement>(
+      "input[name=email]",
+      container,
+    );
+    this._phoneInput = ensureElement<HTMLInputElement>(
+      "input[name=phone]",
+      container,
+    );
   }
 
   set email(value: string) {
-    this._emailInput.value = value;
+    if (this._emailInput.value !== value) {
+      this._emailInput.value = value;
+    }
   }
 
   set phone(value: string) {
-    this._phoneInput.value = value;
+    if (this._phoneInput.value !== value) {
+      this._phoneInput.value = value;
+    }
   }
 }

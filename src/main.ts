@@ -55,10 +55,9 @@ events.on("catalog:changed", () => {
   const cards = catalog.getProducts().map((product) => {
     const card = new CardCatalog(
       cloneTemplate<HTMLElement>("#card-catalog"),
-      events,
+      () => events.emit("card:select", { id: product.id }),
     );
     return card.render({
-      id: product.id,
       title: product.title,
       price: product.price,
       category: product.category,
@@ -82,7 +81,7 @@ events.on("preview:changed", () => {
 
   const cardPreview = new CardPreview(
     cloneTemplate<HTMLElement>("#card-preview"),
-    events,
+    () => events.emit("card:toggleCart", { id: product.id }),
   );
 
   const inCart = cart.hasProduct(product.id);
@@ -95,7 +94,6 @@ events.on("preview:changed", () => {
 
   modal.render({
     content: cardPreview.render({
-      id: product.id,
       title: product.title,
       price: product.price,
       category: product.category,
@@ -129,10 +127,9 @@ function renderBasket(): HTMLElement {
   const items = cart.getProducts().map((product, index) => {
     const card = new CardBasket(
       cloneTemplate<HTMLElement>("#card-basket"),
-      events,
+      () => events.emit("card:remove", { id: product.id }),
     );
     return card.render({
-      id: product.id,
       title: product.title,
       price: product.price,
       index: index + 1,
@@ -159,12 +156,7 @@ events.on("basket:open", () => {
 // Кнопка "Оформить" в корзине
 events.on("order:open", () => {
   modal.render({
-    content: orderForm.render({
-      payment: "",
-      address: "",
-      valid: false,
-      errors: "",
-    }),
+    content: orderForm.render({}),
   });
 });
 
@@ -194,6 +186,7 @@ events.on("buyer:changed", () => {
     .join(". ");
   orderForm.render({
     payment: data.payment,
+    address: data.address,
     valid: !orderErrors,
     errors: orderErrors,
   });
@@ -202,6 +195,8 @@ events.on("buyer:changed", () => {
     .filter(Boolean)
     .join(". ");
   contactsForm.render({
+    email: data.email,
+    phone: data.phone,
     valid: !contactsErrors,
     errors: contactsErrors,
   });
@@ -209,14 +204,7 @@ events.on("buyer:changed", () => {
 
 // Кнопка "Далее" в форме заказа
 events.on("order:submit", () => {
-  modal.render({
-    content: contactsForm.render({
-      email: "",
-      phone: "",
-      valid: false,
-      errors: "",
-    }),
-  });
+  modal.render({ content: contactsForm.render({}) });
 });
 
 // Кнопка "Оплатить" в форме контактов

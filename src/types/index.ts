@@ -49,13 +49,6 @@ export type TOrderResponse = {
 export interface ICard extends Pick<IProduct, "title" | "price"> {}
 
 export interface ICardCatalog extends ICard {
-  id: string;
-  category: string;
-  image: string;
-}
-
-export interface ICardCatalog extends ICard {
-  id: string;
   category: string;
   image: string;
 }
@@ -67,7 +60,6 @@ export interface ICardPreview extends ICardCatalog {
 }
 
 export interface ICardBasket extends ICard {
-  id: string;
   index: number;
 }
 

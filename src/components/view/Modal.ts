@@ -28,7 +28,6 @@ export class Modal extends Component<IModal> {
 
   open(): void {
     this.container.classList.add('modal_active');
-    this.events.emit('modal:open');
   }
 
   close(): void {
@@ -38,8 +37,7 @@ export class Modal extends Component<IModal> {
   }
 
   render(data: IModal): HTMLElement {
-    super.render(data);
     this.open();
-    return this.container;
+    return super.render(data);
   }
 }

@@ -1,31 +1,23 @@
 import { Card } from "./Card";
-import { IEvents } from "../base/Events";
 import { ensureElement } from "../../utils/utils";
 import { categoryMap, CDN_URL } from "../../utils/constants";
 import { ICardCatalog } from "../../types";
 
 export type TCategory = keyof typeof categoryMap;
 
-export class CardCatalog<T extends ICardCatalog = ICardCatalog> extends Card<T> {  protected _category: HTMLElement;
+export class CardCatalog<
+  T extends ICardCatalog = ICardCatalog,
+> extends Card<T> {
+  protected _category: HTMLElement;
   protected _image: HTMLImageElement;
-  protected _id: string = "";
 
-  constructor(
-    container: HTMLElement,
-    protected events: IEvents,
-  ) {
+  constructor(container: HTMLElement, onClick: (event: MouseEvent) => void) {
     super(container);
 
     this._category = ensureElement<HTMLElement>(".card__category", container);
     this._image = ensureElement<HTMLImageElement>(".card__image", container);
 
-    this.container.addEventListener("click", () => {
-      this.events.emit("card:select", { id: this._id });
-    });
-  }
-
-  set id(value: string) {
-    this._id = value;
+    this.container.addEventListener("click", onClick);
   }
 
   set category(value: TCategory) {
@@ -39,6 +31,6 @@ export class CardCatalog<T extends ICardCatalog = ICardCatalog> extends Card<T> 
   }
 
   set image(value: string) {
-    this.setImage(this._image, CDN_URL + value);
+    this.setImage(this._image, CDN_URL + value.replace("svg", "png"));
   }
 }
