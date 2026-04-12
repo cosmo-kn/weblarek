@@ -1,4 +1,5 @@
 import { IBuyer, TFormErrors, TPayment } from "../../types";
+import { IEvents } from "../base/Events";
 
 
 export class Buyer {
@@ -7,7 +8,7 @@ export class Buyer {
   private email: string = '';
   private phone: string = '';
 
-  constructor(data: Partial<IBuyer> = {}) {
+  constructor(protected events: IEvents, data: Partial<IBuyer> = {}) {
     this.setData(data)
   }  
 
@@ -16,6 +17,7 @@ export class Buyer {
     if (data.address !== undefined) this.address = data.address;
     if (data.email !== undefined) this.email = data.email;
     if (data.phone !== undefined) this.phone = data.phone;
+    this.events.emit('buyer:changed');
   }
 
   getData(): IBuyer {
@@ -32,6 +34,7 @@ export class Buyer {
     this.address = '';
     this.email = '';
     this.phone = '';
+    this.events.emit('buyer:changed');
   }
 
   validate(): TFormErrors | {} {
